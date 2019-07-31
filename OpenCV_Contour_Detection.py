@@ -69,7 +69,9 @@ t = int(input("Enter threshold value"))
 
 def find_contours(binary):
     #return second parameter in tuple, ignore rest of returnVals.
-    intermediary ,contours, hierarchy = cv2.findContours(image = binary, mode = cv2.RETR_EXTERNAL, method = cv2.CHAIN_APPROX_SIMPLE)
+    tuple_data = cv2.findContours(image = binary, mode = cv2.RETR_EXTERNAL, method = cv2.CHAIN_APPROX_SIMPLE)
+    contours = tuple_data[1]
+    print("The countour is a {}".format(type(contours)))
     return contours
 
 #Thresholding and image processing. 
@@ -80,7 +82,7 @@ blur = cv2.GaussianBlur(
     src = gray, 
     ksize = (5, 5), 
     sigmaX = 0)
-t, binary = cv2.threshold(
+(t, binary) = cv2.threshold(
     src = blur,
     thresh = t, 
     maxval = 255, 
@@ -88,16 +90,14 @@ t, binary = cv2.threshold(
 
 contour_array = find_contours(binary)
 
-print("contours found")
-print(len(contour_array))
 
-cv2.drawContours(image = binary, 
-    contours = contour_array, 
-    contourIdx = -1, 
-    color = (0, 0, 255), 
-    thickness = 5)
+print("Found %d objects." % len(contour_array))
+for (i, c) in enumerate(contour_array):
+    print("\tSize of contour %d: %d" % (i, len(c)))
 
-cv2.imshow("processed image",binary)
+cv2.drawContours(binary, contour_array, contourIdx = -1, color = (0, 255, 0), thickness = 3)
+
+cv2.imshow("contours", binary)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 
