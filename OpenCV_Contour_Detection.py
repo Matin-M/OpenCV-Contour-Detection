@@ -2,12 +2,12 @@ import cv2
 import sys
 from matplotlib import pyplot as plt
 import numpy as np
-import ctypes
+#import ctypes
 
-def Mbox(title, text, style):
-  return cytypes.windll.user32.MessageBox32.MessageBoxW(0, text, title, style)
+#def Mbox(title, text, style):
+#  return cytypes.windll.user32.MessageBox32.MessageBoxW(0, text, title, style)
 
-Mbox("vars","input",1)
+#Mbox("vars","input",1)
 
 # read original image
 filename = sys.argv[1]
