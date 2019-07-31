@@ -69,7 +69,7 @@ t = int(input("Enter threshold value"))
 
 def find_contours(binary):
     #return second parameter in tuple, ignore rest of returnVals.
-    intermediary ,contours = cv2.findContours(image = binary, mode = cv2.RETR_EXTERNAL, method = cv2.CHAIN_APPROX_SIMPLE)
+    intermediary ,contours, hierarchy = cv2.findContours(image = binary, mode = cv2.RETR_EXTERNAL, method = cv2.CHAIN_APPROX_SIMPLE)
     return contours
 
 #Thresholding and image processing. 
