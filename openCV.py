@@ -9,7 +9,7 @@ def function(param):
 # load the input image and show its dimensions, keeping in mind that
 # images are represented as a multi-dimensional NumPy array with
 # shape no. rows (height) x no. columns (width) x no. channels (depth)
-image = cv2.imread("dots.jpg")
+image = cv2.imread("01039201201150505544528.jpg")
 
 #Create HSV color space from BGR. 
 hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
@@ -36,6 +36,4 @@ mask = cv2.inRange(hsv, threshholdBlue, lowerBlue)
 cv2.imshow("Image", image)
 cv2.imshow("mask", mask)
 
-cv2.waitKey(0)
-cv2.destroyAllWindows()
 
