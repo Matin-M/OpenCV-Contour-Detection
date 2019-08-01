@@ -42,7 +42,8 @@ def histogramAnalysis(histogram):
     max_pixel_density = 256
     max__pixel_value = 0
     for (i, c) in enumerate(contour_array):
-        print 
+        print(i)
+        print (len(c))
    
 
     
@@ -77,9 +78,10 @@ print("Found %d objects." % len(contour_array))
 for (i, c) in enumerate(contour_array):
     print("\tSize of contour %d: %d" % (i, len(c)))
 
-cv2.drawContours(binary, contour_array, contourIdx = -1, color = (0, 255, 0), thickness = 3)
+cv2.drawContours(image, contour_array, contourIdx = -1, color = (0, 255, 0), thickness = 3)
 
-cv2.imshow("contours", binary)
+cv2.imshow("binary: ", binary)
+cv2.imshow("contours: ", image)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 
