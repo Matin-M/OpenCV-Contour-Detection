@@ -37,9 +37,13 @@ def histogram(filename):
     return histogram
 
 def histogramAnalysis(histogram):
-    maxVal = np.amax(histogram)
-    return type(maxVal)
-
+    #maxVal = np.amax(histogram)
+    newList = histogram.tolist()
+    max_pixel_density = 256
+    max__pixel_value = 0
+    for (i, c) in enumerate(contour_array):
+        print 
+   
 
     
 #calling the histogram function
@@ -54,18 +58,20 @@ t = int(input("Enter threshold value"))
 
 def find_contours(binary):
     #return second parameter in tuple, ignore rest of returnVals.
-    tuple_data = cv2.findContours(image = binary, mode = cv2.RETR_EXTERNAL, method = cv2.CHAIN_APPROX_SIMPLE)
-    contours = tuple_data[1]
+    contours, _ = cv2.findContours(image = binary, mode = cv2.RETR_EXTERNAL, method = cv2.CHAIN_APPROX_SIMPLE)
     print("The countour is a {}".format(type(contours)))
     return contours
 
 #Thresholding and image processing. 
 gray = cv2.cvtColor(src = image, code = cv2.COLOR_BGR2GRAY)
+#Blur application
 blur = cv2.GaussianBlur(src = gray, ksize = (5, 5), sigmaX = 0)
+#resultant Binary image. 
 (t, binary) = cv2.threshold(src = blur, thresh = t, maxval = 255, type = cv2.THRESH_BINARY_INV)
 
 contour_array = find_contours(binary)
 
+print(contour_array)
 
 print("Found %d objects." % len(contour_array))
 for (i, c) in enumerate(contour_array):
