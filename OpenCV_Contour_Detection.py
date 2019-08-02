@@ -56,12 +56,12 @@ histogram(filename)
 #The pixels of value t will be turned 'off'
 #Fixed level thresholding
 t = int(input("Enter threshold value"))
-
 def find_contours(binary):
     #return second parameter in tuple, ignore rest of returnVals.
     contours, _ = cv2.findContours(image = binary, mode = cv2.RETR_EXTERNAL, method = cv2.CHAIN_APPROX_SIMPLE)
     print("The countour is a {}".format(type(contours)))
     return contours
+    
 
 #Thresholding and image processing. 
 gray = cv2.cvtColor(src = image, code = cv2.COLOR_BGR2GRAY)
