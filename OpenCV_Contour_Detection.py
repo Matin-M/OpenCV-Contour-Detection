@@ -55,15 +55,12 @@ histogram(filename)
 #t = float(input("Enter threshold value"))
 
 def on_trackbar(x):
-    alpha = x / alpha_slider_max
-    beta = ( 1.0 - alpha )
-    dst = cv.addWeighted(src1, alpha, src2, beta, 0.0)
-    cv.imshow(title_window, dst)
+    pass
 
-cv2.namedWindow("Trackbar_window")
+winname = "Trackbar_window"
+cv2.namedWindow(winname)
 
 trackbarname = "TreshVal: "
-winname = "Input Value"
 value = 0
 count = 255
 cv2.createTrackbar(trackbarname, winname, value, count, on_trackbar)
