@@ -10,7 +10,7 @@ import numpy as np
 #Mbox("vars","input",1)
 
 # read original image
-filename = "01039201201150505544528.jpg"
+filename = "sample.jpg"
 
 print("Filename and threshold value noted.  ")
 #image input. 
@@ -45,23 +45,38 @@ def histogramAnalysis(histogram):
         print(i)
         print (len(c))
    
-
+   
     
 #calling the histogram function
 histogram(filename)
-#print(histogramAnalysis(histogram(filename)))
-# create binary image
-# create binary image
 
 #The pixels of value t will be turned 'off'
 #Fixed level thresholding
-t = int(input("Enter threshold value"))
+#t = float(input("Enter threshold value"))
+
+def on_trackbar(x):
+    alpha = x / alpha_slider_max
+    beta = ( 1.0 - alpha )
+    dst = cv.addWeighted(src1, alpha, src2, beta, 0.0)
+    cv.imshow(title_window, dst)
+
+cv2.namedWindow("Trackbar_window")
+
+trackbarname = "TreshVal: "
+winname = "Input Value"
+value = 0
+count = 255
+cv2.createTrackbar(trackbarname, winname, value, count, on_trackbar)
+
+on_trackbar(0)
+
 def find_contours(binary):
     #return second parameter in tuple, ignore rest of returnVals.
-    contours, _ = cv2.findContours(image = binary, mode = cv2.RETR_EXTERNAL, method = cv2.CHAIN_APPROX_SIMPLE)
+    contours, _ = cv2.findContours(image = binary, mode = cv2.RETR_LIST, method = cv2.CHAIN_APPROX_SIMPLE)
     print("The countour is a {}".format(type(contours)))
     return contours
-    
+
+t = cv2.getTrackbarPos("Threshold Value", "Input Threshold value")
 
 #Thresholding and image processing. 
 gray = cv2.cvtColor(src = image, code = cv2.COLOR_BGR2GRAY)
@@ -69,6 +84,9 @@ gray = cv2.cvtColor(src = image, code = cv2.COLOR_BGR2GRAY)
 blur = cv2.GaussianBlur(src = gray, ksize = (5, 5), sigmaX = 0)
 #resultant Binary image. 
 (t, binary) = cv2.threshold(src = blur, thresh = t, maxval = 255, type = cv2.THRESH_BINARY_INV)
+
+#Invert image, after threshold value is inputted.
+binary = cv2.bitwise_not(binary)
 
 contour_array = find_contours(binary)
 
@@ -78,8 +96,15 @@ print("Found %d objects." % len(contour_array))
 for (i, c) in enumerate(contour_array):
     print("\tSize of contour %d: %d" % (i, len(c)))
 
-cv2.drawContours(image, contour_array, contourIdx = -1, color = (0, 255, 0), thickness = 3)
+uncertain = []
+for(i, c) in enumerate(contour_array):
+    if(i > 30):
+        uncertain.append(i)
 
+print(uncertain)
+cv2.drawContours(image, uncertain, contourIdx = -1, color = (255, 0 , 9), thickness = 3)
+
+#Show images in each processing stage.  
 cv2.imshow("binary: ", binary)
 cv2.imshow("contours: ", image)
 cv2.waitKey(0)
