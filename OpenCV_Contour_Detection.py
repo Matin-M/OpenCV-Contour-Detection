@@ -75,15 +75,20 @@ def find_contours(binary):
 
 t = cv2.getTrackbarPos("Threshold Value", "Input Threshold value")
 
-#Thresholding and image processing. 
-gray = cv2.cvtColor(src = image, code = cv2.COLOR_BGR2GRAY)
-#Blur application
-blur = cv2.GaussianBlur(src = gray, ksize = (5, 5), sigmaX = 0)
-#resultant Binary image. 
-(t, binary) = cv2.threshold(src = blur, thresh = t, maxval = 255, type = cv2.THRESH_BINARY_INV)
+def processing(t_thresh):
+    #Thresholding and image processing. 
+    gray = cv2.cvtColor(src = image, code = cv2.COLOR_BGR2GRAY)
+    #Blur application
+    blur = cv2.GaussianBlur(src = gray, ksize = (5, 5), sigmaX = 0)
+    #resultant Binary image. 
+    (t, binary) = cv2.threshold(src = blur, thresh = t, maxval = 255, type = cv2.THRESH_BINARY_INV)
+    cv2.imshow("binary: ", binary)
+    return binary
+
+
 
 #Invert image, after threshold value is inputted.
-binary = cv2.bitwise_not(binary)
+binary = cv2.bitwise_not(processing())
 
 contour_array = find_contours(binary)
 
@@ -102,7 +107,7 @@ print(uncertain)
 cv2.drawContours(image, uncertain, contourIdx = -1, color = (255, 0 , 9), thickness = 3)
 
 #Show images in each processing stage.  
-cv2.imshow("binary: ", binary)
+
 cv2.imshow("contours: ", image)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
