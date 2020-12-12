@@ -1,2 +1,2 @@
-# OpenCV-test.
-# OpenCV software for image processing and contour scanning. 
+# OpenCV-Contour-Detection.
+# A basic python script for identifying image contours using NumPy and Intel's Open Computer Vision Libarary(OpenCV)
